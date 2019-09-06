@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chat</title>
+</head>
+<body>
+    <h2 style="margin-left: 110px">欢迎来到深海聊天室</h2>
+    <a class="btn btn-default" href="{{reverse_url('index')}}" id="logout" role="button" style="float: right">退出</a>
+    <hr>
+    <div id='content' style="width: 500px; height: 300px; border: solid 1px royalblue">
+<!--        <p>zhouqi</p>-->
+    </div>
+    <div style="margin-top: 10px;" >
+        <input type="text" id="neirong">
+        <button id="send">发送</button>
+    </div>
+</body>
+</html>
+<script>
+    let ws = new WebSocket('ws://127.0.0.1/chatroom/')
+    send.onclick = function () {
+        let txt = neirong.value;
+        ws.send(txt);
+        neirong.value = '';
+    };
+
+    ws.onmessage = function (e) {
+        console.log('e.data');
+        let p = document.createElement('p');
+        p.innerHTML = e.data;
+        content.appendChild(p);
+
+    }
+    logout.onclick = function () {
+        ws.close()
+
+
+    }
+
+
+
+</script>
